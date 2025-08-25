@@ -22,7 +22,7 @@ jobs:
           - os: ubuntu-latest
             generator: "Unix Makefiles"
           - os: windows-latest
-            generator: "Visual Studio 17 2022"
+            generator: "Visual Studio 16 2019"
           - os: macos-latest
             generator: "Unix Makefiles"
 
@@ -36,11 +36,7 @@ jobs:
 
     - name: Configure CMake (Header-only)
       run: |
-        cmake -B build-header-only -G "${{ matrix.generator }}" \
-              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-              -DFINCRAFTR_HEADER_ONLY=ON \
-              -DFINCRAFTR_BUILD_SHARED=OFF \
-              -DFINCRAFTR_BUILD_STATIC=OFF
+        cmake -B build-header-only -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DFINCRAFTR_HEADER_ONLY=ON -DFINCRAFTR_BUILD_SHARED=OFF -DFINCRAFTR_BUILD_STATIC=OFF
 
     - name: Build (Header-only)
       run: cmake --build build-header-only --config ${{ matrix.build_type }}
@@ -50,11 +46,7 @@ jobs:
 
     - name: Configure CMake (Compiled)
       run: |
-        cmake -B build-compiled -G "${{ matrix.generator }}" \
-              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-              -DFINCRAFTR_HEADER_ONLY=OFF \
-              -DFINCRAFTR_BUILD_SHARED=ON \
-              -DFINCRAFTR_BUILD_STATIC=ON
+        cmake -B build-compiled -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DFINCRAFTR_HEADER_ONLY=OFF -DFINCRAFTR_BUILD_SHARED=ON -DFINCRAFTR_BUILD_STATIC=ON
 
     - name: Build (Compiled)
       run: cmake --build build-compiled --config ${{ matrix.build_type }}
@@ -173,7 +165,7 @@ jobs:
     - name: Setup vcpkg
       uses: lukka/run-vcpkg@v11
       with:
-        vcpkgGitCommitId: '2024.07.12'
+        vcpkgGitCommitId: 'f7423ee180c4b7f40d43402c2feb3859161ef625'
 
     - name: Validate vcpkg manifest
       run: |
@@ -183,10 +175,7 @@ jobs:
 
     - name: Test CMake with vcpkg toolchain
       run: |
-        cmake -B build-vcpkg \
-          -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake \
-          -DFINCRAFTR_HEADER_ONLY=ON \
-          -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+        cmake -B build-vcpkg -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake -DFINCRAFTR_HEADER_ONLY=ON -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
         cmake --build build-vcpkg
         echo "✅ CMake builds successfully with vcpkg toolchain"
 
@@ -218,9 +207,7 @@ jobs:
         target_link_libraries(test_vcpkg_app PRIVATE fincraftr::fincraftr)
         EOF
         
-        cmake -B build-vcpkg-test \
-          -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake \
-          -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+        cmake -B build-vcpkg-test -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
         cmake --build build-vcpkg-test
         echo "✅ vcpkg integration test successful"
 

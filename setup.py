@@ -10,7 +10,7 @@ import sys
 import subprocess
 from pathlib import Path
 
-from pybind11.setup_helpers import Pybind11Extension, build_ext, Pybind11CMakeExtension
+from pybind11.setup_helpers import Pybind11Extension, build_ext
 from pybind11 import get_cmake_dir
 import pybind11
 from setuptools import setup, Extension
@@ -19,15 +19,19 @@ from setuptools import setup, Extension
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
-# Define the extension module
+# Define the extension module using standard pybind11 extension
 ext_modules = [
-    Pybind11CMakeExtension(
+    Pybind11Extension(
         "fincraftr.pyfincraftr",
-        sourcedir=str(Path(__file__).parent.absolute()),
-        cmake_args=[
-            "-DFINCRAFTR_BUILD_PYTHON_BINDINGS=ON",
-            "-DFINCRAFTR_HEADER_ONLY=ON",
+        sources=[
+            "python/bindings/main.cpp",
         ],
+        include_dirs=[
+            "cpp/include",
+            pybind11.get_cmake_dir() + "/../include",
+        ],
+        language="c++",
+        cxx_std=20,
     ),
 ]
 
