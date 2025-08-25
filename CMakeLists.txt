@@ -113,9 +113,9 @@ if(FINCRAFTR_BUILD_PYTHON_BINDINGS)
     target_link_libraries(pyfincraftr PRIVATE fincraftr_headers)
     target_compile_definitions(pyfincraftr PRIVATE VERSION_INFO=${PROJECT_VERSION})
     
-    # Set output directory for Python module
+    # Set output directory for Python module - pybind11 setup will handle installation
     set_target_properties(pyfincraftr PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/python/fincraftr
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
 endif()
 

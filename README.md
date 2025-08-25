@@ -68,7 +68,12 @@ forward_price = fc.forwards.forward_price_no_div(100, 0.05, 1)
 
 ### C++ (vcpkg)
 
-Add FinCraftr to your `vcpkg.json`:
+**Option 1: Direct Installation**
+```bash
+vcpkg install fincraftr
+```
+
+**Option 2: Manifest Mode** - Add FinCraftr to your `vcpkg.json`:
 
 ```json
 {
