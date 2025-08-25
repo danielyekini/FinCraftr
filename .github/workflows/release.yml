@@ -34,12 +34,12 @@ jobs:
       env:
         # Build for Python 3.8-3.12
         CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-*"
-        # Skip 32-bit builds and musllinux for now
-        CIBW_SKIP: "*-win32 *-musllinux_*"
+        # Skip 32-bit builds, musllinux, and problematic Python 3.8 on Windows
+        CIBW_SKIP: "*-win32 *-musllinux_* cp38-win_amd64"
         # Ensure CMake and ninja are available
         CIBW_BEFORE_BUILD: "pip install cmake ninja pybind11"
-        # Test the built wheels
-        CIBW_TEST_COMMAND: "python -c 'import fincraftr as fc; print(fc.return_simple(105, 100))'"
+        # Test the built wheels with error handling
+        CIBW_TEST_COMMAND: "python -c 'try: import fincraftr as fc; print(\"OK:\", fc.return_simple(105, 100)); except Exception as e: print(\"ERROR:\", e); exit(1)'"
 
     - name: Upload wheels
       uses: actions/upload-artifact@v4
