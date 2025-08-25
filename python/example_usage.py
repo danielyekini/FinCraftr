@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-Example usage of FinCraftr demonstrating both Python and C++ API access.
+FinCraftr Python Usage Example
 
-This script shows how to use FinCraftr functions for common quantitative finance tasks.
+This script demonstrates basic usage of the FinCraftr Python package.
+For comprehensive examples with detailed explanations, see EXAMPLES.md
+
+Quick Start:
+    pip install fincraftr
+    python example_usage.py
+
+See EXAMPLES.md for complete documentation with explanations.
 """
 
 import fincraftr as fc
@@ -133,9 +140,9 @@ def main():
         rates_analysis_example()
         forwards_analysis_example()
         
-        print("🎉 All examples completed successfully!")
-        print("\nNote: These examples demonstrate the C++ functions exposed to Python.")
-        print("The same functions are available natively in C++ with identical signatures.")
+        print("🎉 Basic examples completed successfully!")
+        print("\n📚 For comprehensive examples with detailed explanations, see EXAMPLES.md")
+        print("🔧 These functions are also available natively in C++ via vcpkg")
         
     except Exception as e:
         print(f"❌ Error running examples: {e}")

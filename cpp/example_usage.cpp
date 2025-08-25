@@ -1,12 +1,17 @@
 /**
- * Example usage of FinCraftr C++ library demonstrating header-only functions.
+ * FinCraftr C++ Usage Example
  * 
- * Compile with:
- *   g++ -std=c++20 -I cpp/include example_usage.cpp -o example_usage
+ * This file demonstrates basic usage of the FinCraftr C++ library.
+ * For comprehensive examples and detailed explanations, see EXAMPLES.md
  * 
- * Or using CMake after installation:
- *   find_package(fincraftr CONFIG REQUIRED)
- *   target_link_libraries(myapp PRIVATE fincraftr::fincraftr)
+ * Quick Start:
+ *   1. Install: vcpkg install fincraftr
+ *   2. CMake: find_package(fincraftr CONFIG REQUIRED)
+ *   3. Link: target_link_libraries(myapp PRIVATE fincraftr::fincraftr)
+ * 
+ * Local compile: g++ -std=c++20 -I .. example_usage.cpp -o example_usage
+ * 
+ * See EXAMPLES.md for complete documentation with explanations.
  */
 
 #include <iostream>
@@ -14,15 +19,15 @@
 #include <vector>
 
 // Include FinCraftr headers
-#include <fincraftr/equity/returns.hpp>
-#include <fincraftr/equity/basic.hpp>
-#include <fincraftr/equity/valuation.hpp>
-#include <fincraftr/options/payoff.hpp>
-#include <fincraftr/options/parity.hpp>
-#include <fincraftr/rates/compounding.hpp>
-#include <fincraftr/rates/discount.hpp>
-#include <fincraftr/rates/conversions.hpp>
-#include <fincraftr/forwards/pricing.hpp>
+#include "include/fincraftr/equity/returns.hpp"
+#include "include/fincraftr/equity/basic.hpp"
+#include "include/fincraftr/equity/valuation.hpp"
+#include "include/fincraftr/options/payoff.hpp"
+#include "include/fincraftr/options/parity.hpp"
+#include "include/fincraftr/rates/compounding.hpp"
+#include "include/fincraftr/rates/discount.hpp"
+#include "include/fincraftr/rates/conversions.hpp"
+#include "include/fincraftr/forwards/pricing.hpp"
 
 void equity_analysis_example() {
     std::cout << "=== Equity Analysis ===\n";
@@ -152,9 +157,9 @@ int main() {
         rates_analysis_example();
         forwards_analysis_example();
         
-        std::cout << "🎉 All examples completed successfully!\n";
-        std::cout << "\nNote: These are the same functions available in Python via pybind11 bindings.\n";
-        std::cout << "The library supports both header-only and compiled library usage.\n";
+        std::cout << "🎉 Basic examples completed successfully!\n";
+        std::cout << "\n📚 For comprehensive examples with detailed explanations, see EXAMPLES.md\n";
+        std::cout << "🐍 These functions are also available in Python via 'pip install fincraftr'\n";
         
     } catch (const std::exception& e) {
         std::cerr << "❌ Error running examples: " << e.what() << "\n";
