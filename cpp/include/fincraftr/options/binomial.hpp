@@ -32,8 +32,8 @@ namespace fc::options {
     /// @param r Risk-free rate
     /// @return Loan amount (negative means lending)
     inline double loan_binomial(double Cu, double Cd, double Su, double Sd, double r) {
-        double Δ = hedge_ratio_binomial(Cu, Cd, Su, Sd);
-        return (Δ * Sd - Cd) / (1.0 + r);
+        double delta = hedge_ratio_binomial(Cu, Cd, Su, Sd);
+        return (delta * Sd - Cd) / (1.0 + r);
     }
 
     /// Price option using one-period binomial replication
