@@ -90,7 +90,7 @@ if(NOT FINCRAFTR_HEADER_ONLY)
         )
         target_compile_features(fincraftr_static PUBLIC cxx_std_20)
         set_target_properties(fincraftr_static PROPERTIES
-            OUTPUT_NAME fincraftr
+            OUTPUT_NAME fincraftr_static
             VERSION ${PROJECT_VERSION}
         )
         add_library(fincraftr::static ALIAS fincraftr_static)
