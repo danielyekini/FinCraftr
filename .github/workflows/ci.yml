@@ -124,7 +124,7 @@ jobs:
         # Find and install the wheel file
         WHEEL_FILE=$(find dist -name "*.whl" | head -1)
         if [ -z "$WHEEL_FILE" ]; then
-          echo "❌ No wheel file found in dist/"
+          echo "ERROR: No wheel file found in dist/"
           ls -la dist/
           exit 1
         fi
@@ -136,18 +136,18 @@ jobs:
         result = fc.return_simple(105.0, 100.0)
         print(f'Simple return: {result}')
         assert abs(result - 0.05) < 1e-10, f'Expected 0.05, got {result}'
-        print('✓ Basic test passed')
+        print('OK Basic test passed')
         
         # Test module access
         result2 = fc.equity.return_simple(110.0, 100.0)
         print(f'Module access test: {result2}')
         assert abs(result2 - 0.10) < 1e-10, f'Expected 0.10, got {result2}'
-        print('✓ Module access test passed')
+        print('OK Module access test passed')
         
         # Test other functions
         compound_result = fc.rates.compound_discrete(1000.0, 0.05, 12, 1.0)
         print(f'Compound interest: {compound_result}')
-        print('✓ All tests passed')
+        print('OK All tests passed')
         "
 
     - name: Upload wheel artifacts
@@ -195,21 +195,21 @@ jobs:
       run: |
         # Test that vcpkg.json is valid
         cat vcpkg.json
-        echo "✅ vcpkg.json validation passed"
+        echo "OK vcpkg.json validation passed"
 
     - name: Test CMake with vcpkg toolchain
       shell: bash
       run: |
         cmake -B build-vcpkg -G Ninja -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" -DFINCRAFTR_HEADER_ONLY=ON -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
         cmake --build build-vcpkg
-        echo "✅ CMake builds successfully with vcpkg toolchain"
+        echo "OK CMake builds successfully with vcpkg toolchain"
 
     - name: Test vcpkg install simulation
       shell: bash
       run: |
         # Install our package to test the installation process
         cmake --install build-vcpkg --prefix vcpkg-test-install
-        echo "✅ Package installation simulation successful"
+        echo "OK Package installation simulation successful"
 
     - name: Test find_package with vcpkg
       shell: bash
@@ -235,7 +235,7 @@ jobs:
         
         cmake -B build-vcpkg-test -G Ninja -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
         cmake --build build-vcpkg-test
-        echo "✅ vcpkg integration test successful"
+        echo "OK vcpkg integration test successful"
 
   # Documentation build test
   docs-build:
