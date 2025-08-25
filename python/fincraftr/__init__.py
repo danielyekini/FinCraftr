@@ -24,7 +24,7 @@ try:
     from .pyfincraftr.equity import return_simple
     from .pyfincraftr.rates import compound_discrete, compound_continuous
     from .pyfincraftr.options import payoff_call, payoff_put
-    from .pyfincraftr.forwards import forward_price_no_div, forward_price_cont_yield
+    from .pyfincraftr.forwards import forward_price_no_div
     
 except ImportError as e:
     import warnings
@@ -41,7 +41,7 @@ except ImportError as e:
     from .equity.returns import return_simple
     from .rates.compounding import compound_discrete, compound_continuous
     from .options.payoff import payoff_call, payoff_put
-    from .forwards.pricing import forward_price_no_div, forward_price_cont_yield
+    from .forwards.pricing import forward_price_no_div
 
 __all__ = [
     "equity",
@@ -54,5 +54,4 @@ __all__ = [
     "payoff_call",
     "payoff_put",
     "forward_price_no_div",
-    "forward_price_cont_yield",
 ]
