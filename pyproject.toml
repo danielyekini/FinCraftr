@@ -48,10 +48,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-username/fincraftr"
-Documentation = "https://fincraftr.readthedocs.io/"
-Repository = "https://github.com/your-username/fincraftr.git"
-"Bug Tracker" = "https://github.com/your-username/fincraftr/issues"
+Homepage = "https://github.com/danielyekini/fincraftr"
+Documentation = "https://github.com/danielyekini/fincraftr#readme"
+Repository = "https://github.com/danielyekini/fincraftr.git"
+"Bug Tracker" = "https://github.com/danielyekini/fincraftr/issues"
 
 [tool.pybind11.setup_helpers.build_meta]
 cmake_args = [

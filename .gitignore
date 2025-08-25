@@ -1,0 +1,416 @@
+# FinCraftr .gitignore
+# Comprehensive ignore file for C++/Python/CMake/vcpkg project
+
+# =============================================================================
+# BUILD DIRECTORIES
+# =============================================================================
+
+# CMake build directories
+build/
+build-*/
+cmake-build-*/
+out/
+
+# Test and staging directories
+install-test/
+test_build/
+test_dir/
+*_staging/
+
+# vcpkg build artifacts
+vcpkg_installed/
+
+# =============================================================================
+# C++ BUILD ARTIFACTS
+# =============================================================================
+
+# Object files
+*.o
+*.obj
+*.ko
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# CMake cache and generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Visual Studio files
+*.vcxproj.user
+*.vcxproj.filters
+*.VC.db
+*.VC.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.VC.opendb
+
+# =============================================================================
+# PYTHON BUILD ARTIFACTS
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# =============================================================================
+# IDE AND EDITOR FILES
+# =============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+cmake-build-*/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# =============================================================================
+# TEMPORARY AND LOG FILES
+# =============================================================================
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# Crash dumps
+*.dmp
+core
+
+# =============================================================================
+# PACKAGE MANAGER FILES
+# =============================================================================
+
+# vcpkg
+vcpkg_installed/
+x64-windows/
+x64-linux/
+x86-windows/
+
+# Conan
+conaninfo.txt
+conanbuildinfo.cmake
+conandata.yml
+
+# npm (if any web docs)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =============================================================================
+# TESTING AND CI/CD ARTIFACTS
+# =============================================================================
+
+# Test results
+test-results/
+test-output/
+TestResults/
+
+# Code coverage
+coverage/
+*.lcov
+*.gcov
+*.gcda
+*.gcno
+
+# Benchmark results
+benchmark-results/
+
+# =============================================================================
+# DOCUMENTATION BUILD ARTIFACTS
+# =============================================================================
+
+# Doxygen
+html/
+latex/
+xml/
+Doxyfile.bak
+
+# Sphinx
+_build/
+_static/
+_templates/
+
+# =============================================================================
+# RELEASE AND DISTRIBUTION ARTIFACTS
+# =============================================================================
+
+# Release packages (should be built by CI)
+*.tar.gz
+*.zip
+*.7z
+*.rar
+
+# Wheel files (built by CI)
+*.whl
+
+# Source distributions (built by CI)
+*.tar.gz
+
+# =============================================================================
+# LOCAL DEVELOPMENT FILES
+# =============================================================================
+
+# Local configuration files
+local_config.ini
+.local/
+.cache/
+
+# Personal notes and scripts
+notes.txt
+TODO.txt
+scratch/
+playground/
+
+# Local testing scripts
+test_local.*
+debug_*
+
+# Internal development documentation (maintainer-only)
+.github/docs/
+.github/ports/
+
+# =============================================================================
+# VCPKG SPECIFIC FILES
+# =============================================================================
+
+# vcpkg integration files that shouldn't be committed
+vcpkg.path.txt
+
+# =============================================================================
+# CMAKE SPECIFIC FILES
+# =============================================================================
+
+# CMake generated files that vary by platform/compiler
+cmake_install.cmake
+CMakeFiles/
+CTestTestfile.cmake
+Makefile
+*.vcxproj
+*.vcxproj.filters
+*.sln
+
+# =============================================================================
+# PYTHON SPECIFIC BUILD FILES
+# =============================================================================
+
+# setuptools_scm
+_version.py
+
+# mypy
+.mypy_cache/
+
+# pytest
+.pytest_cache/
+
+# =============================================================================
+# END OF .gitignore
+# =============================================================================
