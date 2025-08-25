@@ -149,9 +149,9 @@ jobs:
         name: python-wheels
         path: dist/*.whl
 
-  # Test vcpkg integration (Linux only for now)
+  # Test vcpkg configuration
   vcpkg-test:
-    name: vcpkg Integration Test
+    name: vcpkg Configuration Test
     runs-on: ubuntu-latest
 
     steps:
@@ -162,23 +162,27 @@ jobs:
       with:
         cmake-version: '3.20'
 
-    - name: Setup vcpkg
-      uses: microsoft/setup-vcpkg@v1
-      with:
-        vcpkg-version: '2023.10.19'
-
-    - name: Install with vcpkg (simulate)
+    - name: Validate vcpkg manifest
       run: |
-        # Test that vcpkg.json is valid
-        cat vcpkg.json
-        echo "vcpkg.json validation passed"
+        # Test that vcpkg.json is valid JSON and has required fields
+        python -c "
+        import json
+        with open('vcpkg.json') as f:
+            data = json.load(f)
+        required = ['name', 'version', 'description', 'homepage', 'license']
+        missing = [f for f in required if f not in data]
+        if missing:
+            raise ValueError(f'Missing required fields: {missing}')
+        print(f'✅ vcpkg.json is valid with all required fields')
+        print(f'Package: {data[\"name\"]} v{data[\"version\"]}')
+        "
 
-    - name: Test CMake integration
+    - name: Test CMake without vcpkg
       run: |
-        # Test that CMake files are properly structured for vcpkg
+        # Test that CMake files work without vcpkg
         cmake -B build-vcpkg -DFINCRAFTR_HEADER_ONLY=ON
         cmake --build build-vcpkg
-        echo "CMake integration test passed"
+        echo "✅ CMake builds successfully (ready for vcpkg integration)"
 
   # Documentation build test
   docs-build:
