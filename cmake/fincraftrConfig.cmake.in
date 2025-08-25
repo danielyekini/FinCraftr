@@ -10,12 +10,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include("${CMAKE_CURRENT_LIST_DIR}/fincraftrTargets.cmake")
 
 # Set up the main target based on what was built
-if(TARGET fincraftr::shared)
-    add_library(fincraftr::fincraftr ALIAS fincraftr::shared)
-elseif(TARGET fincraftr::static)
-    add_library(fincraftr::fincraftr ALIAS fincraftr::static)
-else()
-    add_library(fincraftr::fincraftr ALIAS fincraftr::headers)
+if(TARGET fincraftr::fincraftr_shared)
+    add_library(fincraftr::fincraftr ALIAS fincraftr::fincraftr_shared)
+elseif(TARGET fincraftr::fincraftr_static)
+    add_library(fincraftr::fincraftr ALIAS fincraftr::fincraftr_static)
+elseif(TARGET fincraftr::fincraftr_headers)
+    add_library(fincraftr::fincraftr ALIAS fincraftr::fincraftr_headers)
 endif()
 
 check_required_components(fincraftr)
