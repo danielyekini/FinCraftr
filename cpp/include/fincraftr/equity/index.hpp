@@ -4,10 +4,20 @@
 #include <cmath>
 
 namespace fc::equity {
+    /// Calculate price-weighted index value
+    /// @param prices Vector of current stock prices
+    /// @param D Divisor used for index calculation
+    /// @return Price-weighted index value
     inline double index_price_weighted(const std::vector<double>& prices, double D) {
         return std::accumulate(prices.begin(), prices.end(), 0.0) / D;
     }
 
+    /// Calculate capitalization-weighted index value
+    /// @param prev_index Previous index value
+    /// @param caps_now Vector of current market capitalizations
+    /// @param caps_prev Vector of previous market capitalizations
+    /// @param J Adjustment factor for corporate actions (default 0.0)
+    /// @return New capitalization-weighted index value
     inline double index_cap_weighted(double prev_index,
                                      const std::vector<double>& caps_now,
                                      const std::vector<double>& caps_prev,
@@ -17,6 +27,11 @@ namespace fc::equity {
         return prev_index * (sum_now / (sum_prev + J));
     }
 
+    /// Calculate Value Line geometric index
+    /// @param prev_index Previous index value
+    /// @param prices_now Vector of current stock prices
+    /// @param prices_prev Vector of previous stock prices
+    /// @return New Value Line geometric index value
     inline double index_value_line_geo(double prev_index,
                                        const std::vector<double>& prices_now,
                                        const std::vector<double>& prices_prev) {
@@ -26,6 +41,11 @@ namespace fc::equity {
         return prev_index * std::pow(product, 1.0 / prices_now.size());
     }
 
+    /// Calculate Value Line arithmetic index
+    /// @param prev_index Previous index value
+    /// @param prices_now Vector of current stock prices
+    /// @param prices_prev Vector of previous stock prices
+    /// @return New Value Line arithmetic index value
     inline double index_value_line_arith(double prev_index,
                                          const std::vector<double>& prices_now,
                                          const std::vector<double>& prices_prev) {

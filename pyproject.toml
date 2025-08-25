@@ -1,0 +1,87 @@
+[build-system]
+requires = ["pybind11>=2.6.0", "cmake>=3.20", "ninja"]
+build-backend = "pybind11.setup_helpers.build_meta"
+
+[project]
+name = "fincraftr"
+version = "1.0.0"
+description = "FinCraftr - A bilingual quantitative finance toolkit"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "FinCraftr Contributors"}
+]
+keywords = ["quantitative finance", "options", "derivatives", "pricing", "risk"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.19.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+]
+
+[project.urls]
+Homepage = "https://github.com/your-username/fincraftr"
+Documentation = "https://fincraftr.readthedocs.io/"
+Repository = "https://github.com/your-username/fincraftr.git"
+"Bug Tracker" = "https://github.com/your-username/fincraftr/issues"
+
+[tool.pybind11.setup_helpers.build_meta]
+cmake_args = [
+    "-DFINCRAFTR_BUILD_PYTHON_BINDINGS=ON",
+    "-DFINCRAFTR_HEADER_ONLY=ON",
+]
+cmake_source_dir = "."
+cmake_build_type = "Release"
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.coverage.run]
+source = ["fincraftr"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]

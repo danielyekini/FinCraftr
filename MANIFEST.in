@@ -1,0 +1,34 @@
+# Include the README and license files
+include README.md
+include LICENSE
+
+# Include CMake files
+include CMakeLists.txt
+include cmake/*.in
+include vcpkg.json
+
+# Include all C++ headers
+recursive-include cpp/include *.hpp
+
+# Include Python binding sources
+recursive-include python/bindings *.cpp
+recursive-include python/bindings *.hpp
+
+# Include Python source files
+recursive-include python/fincraftr *.py
+
+# Include configuration files
+include pyproject.toml
+include setup.cfg
+include MANIFEST.in
+
+# Exclude build artifacts and caches
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__
+global-exclude .DS_Store
+global-exclude *.so
+global-exclude *.dylib
+global-exclude *.dll
+global-exclude build/*
+global-exclude dist/*

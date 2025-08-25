@@ -42,33 +42,147 @@ Its goal is to provide clean, composable building blocks for **pricing, risk, po
 
 ---
 
+## Installation
+
+### Python (PyPI)
+
+Install the latest release from PyPI:
+
+```bash
+pip install fincraftr
+```
+
+Then use in Python:
+
+```python
+import fincraftr as fc
+
+# Calculate simple return
+return_val = fc.return_simple(105, 100)  # 0.05
+
+# Access by module
+option_payoff = fc.options.payoff_call(105, 100)  # 5.0
+compound_value = fc.rates.compound_discrete(1000, 0.05, 12, 1)
+forward_price = fc.forwards.forward_price_no_div(100, 0.05, 1)
+```
+
+### C++ (vcpkg)
+
+Add FinCraftr to your `vcpkg.json`:
+
+```json
+{
+  "dependencies": ["fincraftr"]
+}
+```
+
+Then in your CMakeLists.txt:
+
+```cmake
+find_package(fincraftr CONFIG REQUIRED)
+target_link_libraries(myapp PRIVATE fincraftr::fincraftr)
+```
+
+Use in C++:
+
+```cpp
+#include <fincraftr/equity/returns.hpp>
+#include <fincraftr/options/payoff.hpp>
+
+double return_val = fc::equity::return_simple(105.0, 100.0);  // 0.05
+double call_payoff = fc::options::payoff_call(105.0, 100.0);  // 5.0
+```
+
+### Manual Build from Source
+
+#### C++ Library
+
+```bash
+# Header-only (default)
+cmake -B build -DFINCRAFTR_HEADER_ONLY=ON
+cmake --build build
+cmake --install build --prefix /usr/local
+
+# Or with compiled libraries
+cmake -B build -DFINCRAFTR_HEADER_ONLY=OFF -DFINCRAFTR_BUILD_SHARED=ON
+cmake --build build
+cmake --install build --prefix /usr/local
+```
+
+#### Python Package
+
+```bash
+# Install build dependencies
+pip install pybind11 cmake ninja
+
+# Build and install
+pip install .
+
+# Or build wheel
+python -m build
+pip install dist/*.whl
+```
+
+---
+
 ## Repository Layout
 
 ```text
-fin_craftr/                # Python package
-├─ interest/               # rate/curve mechanics (discounting, compounding, bootstrapping)
-├─ pricing/                # instrument-level valuation built on interest/*
-├─ stats/                  # time-series & diagnostics
-├─ portfolio/              # optimisation & risk primitives
-include/fin_craftr/        # C++20 headers mirroring the Python modules
-tests/
-├─ python/                 # pytest suites
-└─ cpp/                    # Catch2 suites
-docs/                      # short concept notes and API docs
-data/                      # small, non-proprietary fixtures for tests
-examples/                  # minimal runnable snippets (both languages)
+cpp/include/fincraftr/     # C++20 headers (header-only implementations)
+├─ equity/                 # equity analysis (returns, valuation, indices)
+├─ options/                # options pricing and analysis
+├─ forwards/               # forward contract pricing
+└─ rates/                  # interest rates and discounting
+
+python/
+├─ fincraftr/              # Python package with fallback implementations
+└─ bindings/               # pybind11 C++ bindings
+
+CMakeLists.txt             # C++ build configuration
+vcpkg.json                 # vcpkg package manifest
+pyproject.toml             # Python package configuration
+.github/workflows/         # CI/CD pipelines
 ```
 
-> Module borders matter: **`interest/`** hosts reusable rate/curve utilities; **`pricing/`** hosts instrument calculators that *consume* them. Other top-level modules follow the same pattern.
+---
+
+## API Documentation
+
+All functions include comprehensive docstrings accessible via `help()` in Python or doxygen-style comments in C++.
+
+### Equity Module
+
+- `return_simple(Pt, Pt_prev)` - Simple return calculation
+- `market_cap(shares, price)` - Market capitalization
+- `ddm_gordon_growth(D1, r, g)` - Gordon growth dividend discount model
+- Index functions: `index_price_weighted`, `index_cap_weighted`, etc.
+
+### Options Module  
+
+- `payoff_call(ST, K)`, `payoff_put(ST, K)` - Option payoffs
+- `price_binomial_one_period(...)` - Binomial option pricing
+- `check_put_call_parity(...)` - Put-call parity validation
+
+### Rates Module
+
+- `compound_discrete(p0, r, m, years)` - Discrete compounding
+- `compound_continuous(p0, r, t)` - Continuous compounding  
+- `nominal_to_continuous(R, m)` - Rate conversions
+
+### Forwards Module
+
+- `forward_price_no_div(S, r, tau)` - Forward pricing without dividends
+- `forward_price_with_div(S, D, r, tau)` - With discrete dividends
+- `forward_price_cont_yield(S, r, q, tau)` - With continuous yield
 
 ---
 
 ## Language & Tooling
 
-* **Python:** 3.10+ (type-hinted).
-* **C++:** C++20 headers (header-only where sensible).
-* **Build/Test:** CMake for C++; pytest for Python; Catch2 for C++ tests.
-* **Style:** Black/Ruff for Python; clang-format for C++.
+* **Python:** 3.8+ with NumPy support
+* **C++:** C++20 headers (header-only by default, compiled libraries optional)
+* **Build:** CMake 3.20+, vcpkg support, PyPI distribution
+* **CI:** GitHub Actions for Windows, Linux, macOS
 
 ---
 

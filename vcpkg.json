@@ -1,0 +1,17 @@
+{
+  "name": "fincraftr",
+  "version": "1.0.0",
+  "description": "FinCraftr - A bilingual quantitative finance toolkit providing clean, composable building blocks for pricing, risk, portfolio analytics, and market data modelling",
+  "homepage": "https://github.com/your-username/fincraftr",
+  "license": "MIT",
+  "supports": "!(uwp | xbox)",
+  "dependencies": [],
+  "features": {
+    "python-bindings": {
+      "description": "Build Python bindings using pybind11",
+      "dependencies": [
+        "pybind11"
+      ]
+    }
+  }
+}
