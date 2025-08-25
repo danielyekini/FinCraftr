@@ -20,11 +20,11 @@ jobs:
         build_type: [Debug, Release]
         include:
           - os: ubuntu-latest
-            generator: "Unix Makefiles"
+            generator: "Ninja"
           - os: windows-latest
-            generator: "Visual Studio 16 2019"
+            generator: "Ninja"
           - os: macos-latest
-            generator: "Unix Makefiles"
+            generator: "Ninja"
 
     steps:
     - uses: actions/checkout@v4
@@ -33,6 +33,13 @@ jobs:
       uses: jwlawson/actions-setup-cmake@v1.14
       with:
         cmake-version: '3.20'
+
+    - name: Setup Ninja
+      uses: ashutoshvarma/setup-ninja@master
+
+    - name: Setup MSVC (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
 
     - name: Configure CMake (Header-only)
       run: |
@@ -113,7 +120,15 @@ jobs:
 
     - name: Install and test package
       run: |
-        pip install dist/*.whl
+        # Find and install the wheel file
+        WHEEL_FILE=$(find dist -name "*.whl" | head -1)
+        if [ -z "$WHEEL_FILE" ]; then
+          echo "❌ No wheel file found in dist/"
+          ls -la dist/
+          exit 1
+        fi
+        echo "Installing wheel: $WHEEL_FILE"
+        pip install "$WHEEL_FILE"
         python -c "
         import fincraftr as fc
         print('Testing fincraftr...')
@@ -162,6 +177,13 @@ jobs:
       with:
         cmake-version: '3.20'
 
+    - name: Setup Ninja
+      uses: ashutoshvarma/setup-ninja@master
+
+    - name: Setup MSVC (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+
     - name: Setup vcpkg
       uses: lukka/run-vcpkg@v11
       with:
@@ -175,7 +197,7 @@ jobs:
 
     - name: Test CMake with vcpkg toolchain
       run: |
-        cmake -B build-vcpkg -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake -DFINCRAFTR_HEADER_ONLY=ON -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+        cmake -B build-vcpkg -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake -DFINCRAFTR_HEADER_ONLY=ON -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
         cmake --build build-vcpkg
         echo "✅ CMake builds successfully with vcpkg toolchain"
 
@@ -207,7 +229,7 @@ jobs:
         target_link_libraries(test_vcpkg_app PRIVATE fincraftr::fincraftr)
         EOF
         
-        cmake -B build-vcpkg-test -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+        cmake -B build-vcpkg-test -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
         cmake --build build-vcpkg-test
         echo "✅ vcpkg integration test successful"
 
