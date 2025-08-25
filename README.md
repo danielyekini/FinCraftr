@@ -42,6 +42,26 @@ Its goal is to provide clean, composable building blocks for **pricing, risk, po
 
 ---
 
+## Quick Examples
+
+```python
+import fincraftr as fc
+
+# Calculate stock returns
+return_val = fc.return_simple(105, 100)  # 0.05 (5%)
+
+# Option payoffs
+call_payoff = fc.options.payoff_call(105, 100)  # 5.0
+
+# Interest rate calculations  
+compound_value = fc.rates.compound_discrete(1000, 0.05, 12, 1)
+
+# Forward pricing
+forward_price = fc.forwards.forward_price_no_div(100, 0.05, 1)
+```
+
+📚 **For comprehensive examples with detailed explanations, see [EXAMPLES.md](EXAMPLES.md)**
+
 ## Installation
 
 ### Python (PyPI)
