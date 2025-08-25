@@ -1,13 +1,12 @@
 [build-system]
 requires = [
-    "pybind11[global]>=2.10.0",
-    "cmake>=3.20",
-    "ninja",
     "setuptools>=60",
     "wheel",
-    "setuptools-scm[toml]>=6.2"
+    "pybind11[global]>=2.10.0",
+    "cmake>=3.20",
+    "ninja"
 ]
-build-backend = "pybind11.setup_helpers.build_meta"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "fincraftr"
@@ -60,13 +59,7 @@ Documentation = "https://github.com/danielyekini/fincraftr#readme"
 Repository = "https://github.com/danielyekini/fincraftr.git"
 "Bug Tracker" = "https://github.com/danielyekini/fincraftr/issues"
 
-[tool.pybind11.setup_helpers.build_meta]
-cmake_args = [
-    "-DFINCRAFTR_BUILD_PYTHON_BINDINGS=ON",
-    "-DFINCRAFTR_HEADER_ONLY=ON",
-]
-cmake_source_dir = "."
-cmake_build_type = "Release"
+# CMake configuration is now handled in setup.py
 
 [tool.black]
 line-length = 88
